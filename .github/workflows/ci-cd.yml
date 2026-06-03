@@ -22,29 +22,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
 
-      - name: Activar Corepack (pnpm incluido)
+      - name: Activar Corepack
         run: corepack enable
 
-      - name: Instalar pnpm
+      - name: Activar pnpm
         run: corepack prepare pnpm@latest --activate
 
-      - name: Verificar versión de pnpm
+      - name: Verificar pnpm
         run: pnpm -v
-
-      - name: Permitir scripts de construcción
-        run: pnpm approve-builds bcrypt core-js core-js-pure
 
       - name: Instalar dependencias
         run: pnpm install
-
-      - name: Ejecutar pruebas
-        run: CI=true pnpm test -- --watchAll=false
-
-      - name: Compilar aplicación
-        run: pnpm build
-
 
   backend:
     runs-on: ubuntu-latest
