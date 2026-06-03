@@ -14,26 +14,20 @@ jobs:
       run:
         working-directory: frontend
 
-    steps:
-      - name: Descargar código
-        uses: actions/checkout@v4
+    env:
+      PNPM_IGNORE_SCRIPTS: "true"
 
-      - name: Instalar Node.js
-        uses: actions/setup-node@v4
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Activar Corepack
-        run: corepack enable
+      - run: corepack enable
+      - run: corepack prepare pnpm@latest --activate
 
-      - name: Activar pnpm
-        run: corepack prepare pnpm@latest --activate
-
-      - name: Permitir builds de dependencias nativas
-        run: pnpm approve-builds --all
-
-      - name: Instalar dependencias
-        run: pnpm install
+      - run: pnpm install --ignore-scripts
 
 
   backend:
@@ -43,26 +37,19 @@ jobs:
       run:
         working-directory: backend
 
-    steps:
-      - name: Descargar código
-        uses: actions/checkout@v4
+    env:
+      PNPM_IGNORE_SCRIPTS: "true"
 
-      - name: Instalar Node.js
-        uses: actions/setup-node@v4
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Activar Corepack
-        run: corepack enable
+      - run: corepack enable
+      - run: corepack prepare pnpm@latest --activate
 
-      - name: Activar pnpm
-        run: corepack prepare pnpm@latest --activate
+      - run: pnpm install --ignore-scripts
 
-      - name: Permitir builds de dependencias nativas
-        run: pnpm approve-builds --all
-
-      - name: Instalar dependencias
-        run: pnpm install
-
-      - name: Verificar backend
-        run: node --check server.js
+      - run: node --check server.js
