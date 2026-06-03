@@ -29,11 +29,11 @@ jobs:
       - name: Activar pnpm
         run: corepack prepare pnpm@latest --activate
 
-      - name: Verificar pnpm
-        run: pnpm -v
+      - name: Permitir builds de dependencias nativas
+        run: pnpm approve-builds --all
 
-      - name: Instalar dependencias (CI seguro)
-        run: pnpm install --no-frozen-lockfile --ignore-scripts=false
+      - name: Instalar dependencias
+        run: pnpm install
 
 
   backend:
@@ -58,11 +58,11 @@ jobs:
       - name: Activar pnpm
         run: corepack prepare pnpm@latest --activate
 
-      - name: Verificar pnpm
-        run: pnpm -v
+      - name: Permitir builds de dependencias nativas
+        run: pnpm approve-builds --all
 
-      - name: Instalar dependencias (CI seguro)
-        run: pnpm install --no-frozen-lockfile --ignore-scripts=false
+      - name: Instalar dependencias
+        run: pnpm install
 
       - name: Verificar backend
         run: node --check server.js
