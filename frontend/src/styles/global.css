@@ -1,0 +1,12 @@
+:root{
+  --blue: #2D5BFF;
+  --gray: #F5F6FA;
+  --black: #1E1E1E;
+  --white: #FFFFFF;
+}
+
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: var(--gray);
+}
