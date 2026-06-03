@@ -11,12 +11,14 @@ function AgendarCita() {
   const [confirmado, setConfirmado] = useState(false);
 
   const handleSubmit = async () => {
-    const email = localStorage.getItem("correo");
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
 
-    if (!email) {
-      alert("Error: usuario no identificado");
-      return;
-    }
+  if (!usuario) {
+    alert("Error: usuario no identificado");
+    return;
+  }
+
+  const email = usuario.email;
 
     if (!especialidad || !medico || !fecha || !hora) {
       alert("Completa todos los campos");

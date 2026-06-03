@@ -21,19 +21,20 @@ function DashboardPaciente() {
     .replace(/^./, l => l.toUpperCase());
 
   
-  useEffect(() => {
-    const email = localStorage.getItem("correo");
+useEffect(() => {
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
 
-    fetch(`http://localhost:3001/citas/${email}`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          setCitas(data.citas);
-        }
-      })
-      .catch(err => console.error(err));
-  }, []);
+  if (!usuario) return;
 
+  fetch(`http://localhost:3001/citas/${usuario.email}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        setCitas(data.citas);
+      }
+    })
+    .catch(err => console.error(err));
+}, []);
   
   const diasConCitas = citas.map(c => {
     const fecha = new Date(c.fecha);
