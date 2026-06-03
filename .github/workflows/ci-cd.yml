@@ -22,6 +22,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      
+      - name: Allow specific builds
+        run: pnpm approve-builds bcrypt core-js core-js-pure
 
       - name: Instalar pnpm
         run: npm install -g pnpm
