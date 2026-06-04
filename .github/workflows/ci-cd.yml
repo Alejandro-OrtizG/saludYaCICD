@@ -30,6 +30,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Lint frontend
+        run: pnpm lint
+
+      - name: Run tests
+        run: CI=true pnpm test --watchAll=false
+
       - name: Build frontend
         run: pnpm run build
 
