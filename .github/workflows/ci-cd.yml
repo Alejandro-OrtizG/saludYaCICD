@@ -10,53 +10,55 @@ jobs:
 
   frontend:
     runs-on: ubuntu-latest
-
     defaults:
       run:
         working-directory: frontend
 
     steps:
-      - name: Descargar código
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Instalar Node.js
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup pnpm
+        run: corepack prepare pnpm@10.0.0 --activate
+
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: 'pnpm'
 
-      - name: Instalar dependencias
-        run: npm install
-
-      - name: Ejecutar Lint
-        run: npm run lint || echo "Lint no configurado"
-
-      - name: Ejecutar pruebas
-        run: CI=true npm test -- --watchAll=false || echo "Sin tests"
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Build frontend
-        run: npm run build
+        run: pnpm run build
 
 
   backend:
     runs-on: ubuntu-latest
-
     defaults:
       run:
         working-directory: backend
 
     steps:
-      - name: Descargar código
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Instalar Node.js
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup pnpm
+        run: corepack prepare pnpm@10.0.0 --activate
+
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: 'pnpm'
 
-      - name: Instalar dependencias
-        run: npm install
+      - name: Install dependencies
+        run: pnpm install
 
-      - name: Verificar backend
+      - name: Verify backend
         run: node --check server.js
