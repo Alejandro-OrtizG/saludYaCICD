@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function DashboardPaciente() {
+  const API = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
   const [citas, setCitas] = useState([]);
@@ -26,15 +27,15 @@ useEffect(() => {
 
   if (!usuario) return;
 
-  fetch(`http://localhost:3001/citas/${usuario.email}`)
-    .then(res => res.json())
-    .then(data => {
+  fetch(`${API}/citas/${usuario.email}`)
+    .then((res) => res.json())
+    .then((data) => {
       if (data.success) {
         setCitas(data.citas);
       }
     })
-    .catch(err => console.error(err));
-}, []);
+    .catch((err) => console.error(err));
+}, [API]);
   
   const diasConCitas = citas.map(c => {
     const fecha = new Date(c.fecha);
