@@ -57,7 +57,7 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: Check backend
-        run: node server.js --check
+        run: node --check server.js
 
 
   deploy:
