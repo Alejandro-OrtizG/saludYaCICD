@@ -44,7 +44,7 @@ function AgendarCita() {
     };
 
     try {
-      fetch(`${API}/citas`, {
+      const res = await fetch(`${API}/citas`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -64,8 +64,7 @@ function AgendarCita() {
       console.error(error);
       alert("Error con el servidor");
     }
-  };
-
+  }
   return (
     <div style={styles.container}>
       <div style={styles.card}>
