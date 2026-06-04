@@ -10,26 +10,25 @@ jobs:
 
   frontend:
     runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: frontend
 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Setup pnpm
-        run: corepack prepare pnpm@10.0.0 --activate
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
+      - name: Install pnpm
+        run: corepack enable
+
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build frontend
         run: pnpm run build
@@ -37,26 +36,35 @@ jobs:
 
   backend:
     runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: backend
 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Setup pnpm
-        run: corepack prepare pnpm@10.0.0 --activate
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install pnpm
+        run: corepack enable
 
-      - name: Verify backend
-        run: node --check server.js
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Check backend
+        run: node server.js --check
+
+
+  deploy:
+    needs: [frontend, backend]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deploy
+        run: echo "Deploy a Vercel / Render aquí"
