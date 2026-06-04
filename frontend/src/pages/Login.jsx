@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const API = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
-
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
+  const API = process.env.REACT_APP_API_URL;
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ function Login() {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/login", {
+      const response = await fetch(`${API}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
