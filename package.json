@@ -1,5 +1,1 @@
-{
-  "dependencies": {
-    "sqlite3": "^5.1.6"
-  }
-}
+{"dependencies":{"better-sqlite3":"^12.10.0"}}
