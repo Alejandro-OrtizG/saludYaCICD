@@ -3,8 +3,13 @@ const express = require("express");
 const cors = require("cors");
 const db = require("./database");
 
-const app = express();
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:3000",
+    "https://salud-ya-cicd.vercel.app/"
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 app.post("/login",(req,res)=>{
@@ -50,4 +55,8 @@ app.get("/citas/:email",(req,res)=>{
  });
 });
 
-app.listen(process.env.PORT || 3001);
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, () => {
+  console.log("Servidor corriendo en puerto " + PORT);
+});

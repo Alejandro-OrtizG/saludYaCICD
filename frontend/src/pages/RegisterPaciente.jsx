@@ -22,14 +22,14 @@ function RegisterPaciente() {
       [name]: value
     });
   };
-
+  const API = process.env.REACT_APP_API_URL;
   const handleRegister = async (e) => {
     e.preventDefault();
 
     console.log("FORM:", form); 
 
     try {
-      const res = await fetch("http://localhost:3001/register", {
+      const res = await fetch(`${API}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -9,6 +9,7 @@ function AgendarCita() {
   const [fecha, setFecha] = useState("");
   const [hora, setHora] = useState("");
   const [confirmado, setConfirmado] = useState(false);
+  const API = process.env.REACT_APP_API_URL;
 
   const handleSubmit = async () => {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -43,7 +44,7 @@ function AgendarCita() {
     };
 
     try {
-      const res = await fetch("http://localhost:3001/citas", {
+      fetch(`${API}/citas`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
